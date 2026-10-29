@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>巷口鍋貼舖 0.1</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #1C130C; color: #F4EAD5; font-family: "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", sans-serif; }
+    body { display: flex; flex-direction: column; }
+    [hidden] { display: none !important; }
+    #game { flex: 1; min-height: 0; }
+
+    /* 畫面下方的音樂列 */
+    #music { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; padding: 8px 16px; background: #120B06; font-size: 14px; }
+    #music-now { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #CDBB9C; }
+    #music select, #music button { font: inherit; color: #F4EAD5; background: #3A2A1E; border: 2px solid #5A4632; padding: 4px 8px; cursor: pointer; }
+    #music select { max-width: 260px; }
+    #music input[type=range] { width: 100px; accent-color: #E8742A; }
+  </style>
+</head>
+<body>
+  <div id="game"></div>
+  <div id="music">
+    <span id="music-now"></span>
+    <select id="music-track" aria-label="背景音樂"></select>
+    <button id="music-next" type="button">下一首</button>
+    <input id="music-volume" type="range" min="0" max="1" step="0.05" aria-label="音量">
+    <button id="music-mute" type="button">靜音</button>
+  </div>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

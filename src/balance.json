@@ -1,0 +1,25 @@
+{
+  "pan": {
+    "capacity": 30,
+    "steamSec": 20,
+    "crispSec": 10,
+    "perfectFrom": 4,
+    "perfectTo": 8,
+    "cleanSec": 3,
+    "quality": { "under": 70, "perfect": 100, "over": 80 }
+  },
+  "tray": {
+    "freshSec": 90,
+    "wasteSec": 180
+  },
+  "customers": {
+    "slots": 4,
+    "firstSpawnSec": 2,
+    "spawnMinSec": 5,
+    "spawnMaxSec": 15,
+    "orderMin": 5,
+    "orderMax": 12,
+    "patienceSec": 60
+  },
+  "price": 6
+}
