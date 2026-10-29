@@ -8,7 +8,7 @@
 npm install
 npm run dev      # 開發，瀏覽器開 http://localhost:5173
 npm test         # 單元測試
-npm run build    # 輸出到 dist/
+npm run build    # 輸出到 docs/（GitHub Pages 的網站入口）
 ```
 
 ## 怎麼玩
@@ -45,6 +45,14 @@ npm run build    # 輸出到 dist/
 - 選「隨機播放」一首放完換下一首；選某一首就是單曲循環。選哪首、音量、靜音會記在這台裝置。
 - 瀏覽器規定要有操作才能出聲，所以第一次點畫面或按鍵時才開始放。
 - iPhone 不讓網頁調音量，音量拉桿在 iPhone 上沒作用，靜音有用。
+
+## 部署（GitHub Pages）
+
+1. `npm run build`，把 `docs/` 跟著程式碼一起 commit、push 到 `main`，一兩分鐘後網站就更新。
+2. 第一次要到 repo 的 **Settings → Pages**：Source 選 **Deploy from a branch**，Branch 選 `main`、資料夾選 `/docs`。
+3. `public/` 裡的檔案每次 build 都會原樣複製進 `docs/`：
+   - `.nojekyll`（空檔）：叫 GitHub 直接放檔案、不要跑 Jekyll
+   - `CNAME`（綁子網域時才加）：內容一行，例如 `potsticker.toollab.link`
 
 ## 除錯
 
