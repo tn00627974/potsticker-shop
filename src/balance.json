@@ -1,6 +1,6 @@
 {
   "pan": {
-    "capacity": 30,
+    "capacity": 50,
     "steamSec": 20,
     "crispSec": 10,
     "perfectFrom": 4,
@@ -13,10 +13,10 @@
     "wasteSec": 180
   },
   "customers": {
-    "slots": 4,
+    "slots": 8,
     "firstSpawnSec": 2,
-    "spawnMinSec": 5,
-    "spawnMaxSec": 15,
+    "spawnMinSec": 4,
+    "spawnMaxSec": 9,
     "orderMin": 5,
     "orderMax": 12,
     "patienceSec": 60

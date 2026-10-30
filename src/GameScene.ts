@@ -12,16 +12,23 @@ const CREAM = '#F4EAD5';
 const SPEED = Number(new URLSearchParams(location.search).get('speed')) || 1;
 
 // 櫃台外客人站的位置（美術座標，客人中心 x），索引就是 Customer.slot
-const SLOT_X = [66, 128, 196, 262];
+const SLOT_X = [30, 67, 104, 141, 179, 216, 253, 290];
 
-// 鍋裡 30 格（美術座標）：5 排，越前面的排越大，看起來有透視
+// 鍋裡 50 格（美術座標）：6 排，越前面的排越大，看起來有透視
+// 每排 [顆數, y, 寬, 高]；顆數加起來要等於 balance.json 的 pan.capacity
+const PAN_ROWS = [
+  [6, 97, 11, 7],
+  [9, 107, 12, 7],
+  [10, 117, 12, 8],
+  [10, 128, 13, 8],
+  [9, 139, 13, 9],
+  [6, 150, 14, 9],
+];
 const PAN_SLOTS: { x: number; y: number; w: number; h: number }[] = [];
-[5, 6, 8, 6, 5].forEach((n, r) => {
-  const w = 13 + r;
-  const h = 8 + Math.floor((r + 1) / 2);
+for (const [n, y, w, h] of PAN_ROWS) {
   const left = 160 - Math.floor((n * w + n - 1) / 2);
-  for (let k = 0; k < n; k++) PAN_SLOTS.push({ x: left + k * (w + 1), y: [100, 111, 122, 134, 146][r], w, h });
-});
+  for (let k = 0; k < n; k++) PAN_SLOTS.push({ x: left + k * (w + 1), y, w, h });
+}
 
 // 鍋貼顏色 [表皮, 摺子, 底部]
 const RAW = [0xf3e7cd, 0xd6c29c, 0x9c8862];
@@ -96,11 +103,11 @@ export class GameScene extends Phaser.Scene {
     this.panText = this.text(640, 322, 15, CREAM, 'rgba(18,11,6,0.86)').setOrigin(0.5, 0).setAlign('center');
     this.trayText = this.text(1062, 410, 12, CREAM, 'rgba(18,11,6,0.86)');
     this.text(16, 360, 13, INK, '#FFF8EA').setText('生餃盤：點盤子放 1 顆');
-    this.text(362, 282, 13, INK, '#FFF8EA').setText('點水壺或鍋蓋：淋粉漿水・蓋鍋');
-    SLOT_X.forEach((x) => this.bubbleTexts.push(this.text(x * S + 52, 104, 15, INK).setVisible(false)));
+    this.text(16, 324, 13, INK, '#FFF8EA').setText('點水壺或鍋蓋：淋粉漿水・蓋鍋');
+    SLOT_X.forEach((x) => this.bubbleTexts.push(this.text(x * S - 52, 254, 15, INK).setVisible(false)));
 
     // ---- 點場景裡的東西 ----
-    SLOT_X.forEach((x, slot) => this.zone(x * S - 72, 64, 242, 176, () => this.serveSlot(slot)));
+    SLOT_X.forEach((x, slot) => this.zone(x * S - 74, 64, 148, 240, () => this.serveSlot(slot)));
     this.zone(0, 392, 236, 216, () => this.shop.pan.add(1)); // 生餃盤
     this.zone(240, 288, 128, 112, () => this.shop.pan.cover()); // 水壺
     this.zone(1016, 312, 256, 96, () => this.shop.pan.cover()); // 鍋蓋

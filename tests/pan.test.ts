@@ -13,9 +13,10 @@ function panReadyToCrisp(n = 20) {
 describe('排鍋', () => {
   it('最多放到鍋子容量', () => {
     const pan = new Pan();
-    expect(pan.add(25)).toBe(25);
+    const cap = pan.cfg.capacity;
+    expect(pan.add(cap - 5)).toBe(cap - 5);
     expect(pan.add(10)).toBe(5);
-    expect(pan.count).toBe(30);
+    expect(pan.count).toBe(cap);
     expect(pan.state).toBe('loaded');
   });
 
