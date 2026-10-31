@@ -246,9 +246,65 @@ def customers():
         save(f'customer-{i}.png', (0, 16, 40, 60))
 
 
+# ---------------- 煮鍋場景：同一條街、同一個櫃台，工作台換成兩口水餃鍋 ----------------
+# 鍋子中心 x（美術座標），要跟 GameScene.ts 的 POT_X 一樣；水面、水餃、泡沫由程式畫
+POT_X = [100, 222]
+
+
+def boil_background():
+    background()  # 先畫整張煎台背景，再把工作台蓋掉
+    R(0, 78, W, 180, '#AEB4BB')
+    R(0, 78, W, 80, '#D5DAE0')
+    for y in range(83, 174, 3):
+        R(0, y, W, y + 1, '#A7ADB4')
+    R(0, 174, W, 180, '#8E959D')
+    R(0, 174, W, 175, '#C8CDD3')
+
+    for cx in POT_X:
+        top, bot = 104, 160
+        overlay(lambda ld, cx=cx: E(cx, bot + 6, 58, 10, (40, 28, 18, 80), dd=ld))
+        R(cx - 54, top, cx + 55, bot, '#9AA1A9')
+        R(cx - 54, top, cx - 44, bot, '#C2C8CE')
+        R(cx + 40, top, cx + 55, bot, '#7E858D')
+        E(cx, bot, 54, 9, '#7E858D')
+        for hx in (cx - 66, cx + 56):  # 把手
+            R(hx, top + 8, hx + 11, top + 14, '#5E5E68')
+        for fx in range(cx - 40, cx + 41, 10):  # 爐火
+            d.polygon([(fx - 4, bot + 8), (fx, bot + 1), (fx + 4, bot + 8)], fill='#E8742A')
+        E(cx, top, 55, 20, '#D5DAE0')  # 鍋緣
+        E(cx, top + 1, 50, 17, '#5E7F92')  # 鍋內（水面由程式畫在上面）
+
+    # 生水餃盤（左）
+    d.polygon([(0, 128), (34, 128), (38, 172), (0, 172)], fill='#E2E6EA')
+    d.polygon([(0, 130), (32, 130), (35, 170), (0, 170)], fill='#B9BFC6')
+    for ry in range(133, 166, 7):
+        for k in range(3):
+            x = 2 + k * 10
+            R(x + 1, ry, x + 8, ry + 1, '#E2D8C0')
+            R(x, ry + 1, x + 9, ry + 4, '#F6F1E4')
+            R(x + 1, ry + 4, x + 8, ry + 5, '#C9BC9C')
+
+    # 冷水碗（兩鍋中間）
+    overlay(lambda ld: E(161, 168, 16, 4, (40, 28, 18, 80), dd=ld))
+    E(161, 160, 15, 6, '#C2C8CE')
+    R(146, 160, 177, 166, '#AEB4BB')
+    E(161, 166, 15, 5, '#9AA1A9')
+    E(161, 160, 12, 4, '#BFE3F2')
+    d.line([(166, 158), (178, 138)], fill='#6E5238', width=2)
+
+    # 漏勺、碗（右）
+    d.line([(296, 150), (316, 124)], fill='#6E5238', width=2)
+    E(292, 154, 9, 5, '#8E959D')
+    E(292, 154, 7, 3, '#C9CED4')
+    for i in range(3):
+        E(300, 176 - i * 4, 14, 4, '#FFFFFF', '#C9CED3')
+    save('boil-bg.png')
+
+
 if __name__ == '__main__':
     OUT.mkdir(parents=True, exist_ok=True)
     background()
+    boil_background()  # 放在 background() 後面，bg.png 的爐火亂數才會跟以前一樣
     glass()
     lids()
     customers()

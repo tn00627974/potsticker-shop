@@ -8,6 +8,15 @@
     "cleanSec": 3,
     "quality": { "under": 70, "perfect": 100, "over": 80 }
   },
+  "boil": {
+    "pots": 2,
+    "capacity": 20,
+    "heatSec": 6,
+    "boilWindowSec": 3,
+    "times": 3,
+    "floatSec": 6,
+    "quality": { "good": 100, "broken": 60 }
+  },
   "tray": {
     "freshSec": 90,
     "wasteSec": 180
@@ -19,6 +28,10 @@
     "spawnMaxSec": 9,
     "orderMin": 5,
     "orderMax": 12,
+    "dumplingMin": 6,
+    "dumplingMax": 12,
+    "dumplingOnlyRate": 0.2,
+    "bothRate": 0.25,
     "patienceSec": 60
   },
   "price": 6
